@@ -8,10 +8,9 @@
 \usepackage[section]{placeins}
 \usepackage{afterpage}
 \usepackage{hyperref}
-\usepackage[style=numeric, sorting=none, url=false]{biblatex} % or natbib
+\usepackage[style=authoryear, sorting=nyt, url=false]{biblatex}
 \addbibresource{Masterarbeit.bib}
-\renewcommand*{\bibfont}{\footnotesize}
-
+\renewcommand*{\bibfont}{\scriptsize}
 
 \title{Molecular and Functional Profiling of Motion-Sensitive Neurons in the Developing Zebrafish Hindbrain}
 \author{Max Widmann}
@@ -28,26 +27,26 @@
 \subsubsection{Larval zebrafish as an animal system for neuroscience}
 The zebrafish (\textit{Danio rerio}), a small freshwater fish from india, is a commonly used animal system in mechanistic neuroscience. In its larval stage, days after hatching, its small size, transparency, and the genetic toolkit, allows for non-invasive functional imaging of the whole brain, in a living vertebrate (\autoref{fig:introduction}B).\\
 One facet of neuroscience the larval zebrafish is used in is the analysis of decision making. Exposing the fish to visual stimuli and observing the swim directions they choose to take, allows for high-throughput decision making experiments.\\
-Through the creation of mathematical models, which reproduce the behavioral responses of these experiments, and finding neural correlates of the parts of these models in the brain seeing these same stimuli, it is possible to propose functional cell types and neural circuits for decision making. The tasks studied range from fundamental orientation in the environment based on visual cues \cite{bahlNeuralCircuitsEvidence2020, slangewalVisuomotorDecisionmakingMultifeature2026, boulanger-weillCorrelativeLightElectron2025}, to more specialized behaviors such as distinguishing between predator and prey \cite{barkerSensorimotorDecisionMaking2015}, or finding conspecifics for social interactions \cite{kappelVisualRecognitionSocial2022}.  
+Through the creation of mathematical models, which reproduce the behavioral responses of these experiments, and finding neural correlates of the parts of these models in the brain seeing these same stimuli, it is possible to propose functional cell types and neural circuits for decision making. The tasks studied range from fundamental orientation in the environment based on visual cues \parencite{bahlNeuralCircuitsEvidence2020, slangewalVisuomotorDecisionmakingMultifeature2026, boulanger-weillCorrelativeLightElectron2025}, to more specialized behaviors such as distinguishing between predator and prey \parencite{barkerSensorimotorDecisionMaking2015}, or finding conspecifics for social interactions \parencite{kappelVisualRecognitionSocial2022}.  
 
 \subsubsection{The optomotor response}
 \label{sec:omr}
-One of these behavioral paradigms is the optomotor response (OMR). It describes the tendency of the larval zebrafish to follow the overall direction of visual motion \cite{orgerBehavioralScreeningAssays2004b, naumannWholeBrainDataFunctional2016}. Bahl and Engert \cite{bahlNeuralCircuitsEvidence2020} established a neural circuit, based on a leaky integrator model. This circuit was further investigated by Boulanger-Weill and collaborators \cite{boulanger-weillCorrelativeLightElectron2025},
+One of these behavioral paradigms is the optomotor response (OMR). It describes the tendency of the larval zebrafish to follow the overall direction of visual motion \parencite{orgerBehavioralScreeningAssays2004b, naumannWholeBrainDataFunctional2016}. \cite{bahlNeuralCircuitsEvidence2020} established a neural circuit, based on a leaky integrator model. This circuit was further investigated by \cite{boulanger-weillCorrelativeLightElectron2025},
 using electron microscopy, axon-tracing, and HCR to validate and update the connections and neurotransmitters of the neurons of the circuit. Showing that the real-life implementation of the neural circuit is more complex then proposed, as they found multiple midline-crossing cell types, and mixed populations of excitatory and inhibitory neuron within one functional cell type.\\
 The proposed circuit consists of three functional cell types: \textit{Motion Integrator} (MI) cells, which rises towards a plateau  while there is motion in the preferred direction of the neuron. MIs can either project ipsilateral or contralateral  (iMI/cMI). The cMIs are almost exclusively inhibitory, as they express \textit{glutamate decarboxylase 1b} (\textit{gad1b}), an enzyme needed for the production of the inhibitory neurotransmitter GABA, repressing the contralateral part of the circuit, while there is visual motion in ipsilateral direction.\\
-Meanwhile, the iMI population is mixed in their neurotransmitter. The excitatory subset, which expresses the gene \textit{vglut2a}, a marker for neurons releasing \textit{glutamate}, an excitatory transmitter \cite{higashijimaDistributionProspectiveGlutamatergic2004}, builds up the signal strength through recursive connections, then forwards the impulse further downstream in the circuit, while the inhibitory, \textit{gad1b$^+$}, ipsilateral MIs remove the inhibition of MIs from the second functional cell type:
+Meanwhile, the iMI population is mixed in their neurotransmitter. The excitatory subset, which expresses the gene \textit{vglut2a}, a marker for neurons releasing \textit{glutamate}, an excitatory transmitter \parencite{higashijimaDistributionProspectiveGlutamatergic2004}, builds up the signal strength through recursive connections, then forwards the impulse further downstream in the circuit, while the inhibitory, \textit{gad1b$^+$}, ipsilateral MIs remove the inhibition of MIs from the second functional cell type:
 \textit{Motion Onset} (MON) cells. MONs reach their peak response signal earlier then the other cell types, and then fall of as the MIs reach their peak activity. They serve sort of as a "handbrake" for the whole circuit, allowing the animal to accumulate more information before the circuit generates an output (\autoref{fig:introduction}A, C).\\
 The final cell type are the \textit{Slow Motion Integrator} (SMI) cells. As their name suggest, SMIs' response slowly rises as the stimulus goes on. They are proposed to be the output nodes of the circuit, connecting to myelinated neurons, which dictate motor output.\\
 Overall, the circuit works as follows: If the larva experiences visual motion to e.g. the left side of itself, the iMI and MON cells in the left anterior hindbrain get activated by motion processing cells from the midbrain. The MONs surpress activity of motion integrating cells until there is a strong enough signal in the inhibitory subset of iMIs. They cause inhibition of MON neurons, in turn releasing cMIs to be able to inhibit all part of the circuit on the contralateral hemisphere. In addition to this SMIs are activates by iMIs, forwarding the signal to myelinated neurons, which initiate swimming to the left (\autoref{fig:introduction}C).\\
 
 \subsubsection{Phototaxis}
 \label{sec:phototaxis}
-Another well studied visually driven behavior is phototaxis. In larval zebrafish, phototaxis describes the tendency of larvae to swim towards brighter illuminated areas \cite{orgerBehavioralScreeningAssays2004b, liZebrafishMutantsBehavioral2001, burgessDistinctRetinalPathways2010, fernandesEnlighteningBrainLinking2013}.\\
-This response can also be observed if a "fish-centered" stimulus, meaning the visual field of the fish is split into a bright and dark half at the midline of the larva, is presented. Larvae will predominantly swim towards the bright side \cite{capelleBehavioralAlgorithmsOntogenetic2026}.\\
-Slangewal et al. proposed a neural mechanism for this \cite{slangewalVisuomotorDecisionmakingMultifeature2026}. They studied the combination of the above described "split-view" luminance cues with random-dot-motion (RDM) stimuli, in which flickering dots are moving on horizontally to the fish.\\
+Another well studied visually driven behavior is phototaxis. In larval zebrafish, phototaxis describes the tendency of larvae to swim towards brighter illuminated areas \parencite{orgerBehavioralScreeningAssays2004b, liZebrafishMutantsBehavioral2001, burgessDistinctRetinalPathways2010, fernandesEnlighteningBrainLinking2013}.\\
+This response can also be observed if a "fish-centered" stimulus, meaning the visual field of the fish is split into a bright and dark half at the midline of the larva, is presented. Larvae will predominantly swim towards the bright side \parencite{capelleBehavioralAlgorithmsOntogenetic2026}.\\
+Slangewal et al. proposed a neural mechanism for this \parencite{slangewalVisuomotorDecisionmakingMultifeature2026}. They studied the combination of the above described "split-view" luminance cues with random-dot-motion (RDM) stimuli, in which flickering dots are moving on horizontally to the fish.\\
 The study revealed multiple functional cell types, reacting to luminance: \textit{Luminance Integrators} (LI), which similar to MIs build up their signal with time when the larva is exposed to bright light, \textit{Bright} and \textit{Dark}, as well as general \textit{Change} neurons, which all react to changes in luminance on the contralateral eye. Furthermore, \textit{Motion} cells, showing identical responses to MIs, and \textit{Multifeature} cells, combining motion and luminance input, were described (\autoref{fig:introduction}D, E).\\
 In the proposed circuit, motion and luminance integration, as well as the change in luminance, happen in parallel. While motion is processed on the ipsilateral hindbrain hemisphere, luminance responsive cells are found in the optic tectum, contralateral to the eye which receives the stimulus. The two path converge in the \textit{Multifeature} cells, which then initiate further neurons, which elicits a swimming bout.\\
-On the other hand, there is evidence that light-seeking behavior is not only triggered by optical photoreceptors, but also by photosensitive cells deeper in the brain, which appear to be especially important in embryos or larvae that have just hatched \cite{fernandesEnlighteningBrainLinking2013, fernandesDeepBrainPhotoreceptors2012, kokelIdentificationNonvisualPhotomotor2013}.          
+On the other hand, there is evidence that light-seeking behavior is not only triggered by optical photoreceptors, but also by photosensitive cells deeper in the brain, which appear to be especially important in embryos or larvae that have just hatched \parencite{fernandesEnlighteningBrainLinking2013, fernandesDeepBrainPhotoreceptors2012, kokelIdentificationNonvisualPhotomotor2013}.          
 
 
 \begin{figure}[htb]
@@ -58,25 +57,25 @@ On the other hand, there is evidence that light-seeking behavior is not only tri
     \textbf{A}: OMR cell types, their stereotypical response and projections. 
     \textbf{C}: Proposed OMR hindbrain circuit. 
     \textbf{D}: Functional cell types for the combination of directional motion and luminance cues, as well as the proposed connections (\textbf{E}). 
-    \textbf{A} and \textbf{C} reprinted from Boulanger-Weill et al., (2025) Fig.1F-I, Fig.5B \cite{boulanger-weillCorrelativeLightElectron2025}.
-    \textbf{D} and \textbf{E} reprinted from Slangewal et al., (2026) Fig.3F, Fig.5F \cite{slangewalVisuomotorDecisionmakingMultifeature2026}.}
+    \textbf{A} and \textbf{C} reprinted from \cite{boulanger-weillCorrelativeLightElectron2025} Fig.1F-I, Fig.5B.
+    \textbf{D} and \textbf{E} reprinted from \cite{slangewalVisuomotorDecisionmakingMultifeature2026} Fig.3F, Fig.5F.}
 	\label{fig:introduction}
 \end{figure}
 \afterpage{\FloatBarrier}
 
 
 \subsubsection{Development of larval zebrafish behaviors}
-Very little behavioral or neuroscience research is done with zebrafish larvae aged 3 dpf, although some neural circuits e.g. for gill movement are already functional \cite{mcarthurEarlyDevelopmentRespiratory2023}. After hatching 48 to 72h after fertilization, larvae only move in very short bursts if startled\\
-One reason is that the swim bladder usually inflates about a day after hatching \cite{kimmelStagesEmbryonicDevelopment1995}.
-Furthermore, the swim bouts get shorter and less erratic from 3 to 4 dpf. This seems to be caused by the maturation of dopaminergic neuron which coordinate swimming movement \cite{mercierRefinementLocomotorActivity2025a}.\\
-The stereotypical behavior of the OMR can first be observed at 4 dpf \cite{orgerBehavioralScreeningAssays2004b}, while other commonly investigated behaviors, like phototaxis and the optokinetic response are reported to be present as early as 3 dpf \cite{liZebrafishMutantsBehavioral2001}.\\
+Very little behavioral or neuroscience research is done with zebrafish larvae aged 3 dpf, although some neural circuits e.g. for gill movement are already functional \parencite{mcarthurEarlyDevelopmentRespiratory2023}. After hatching 48 to 72h after fertilization, larvae only move in very short bursts if startled\\
+One reason is that the swim bladder usually inflates about a day after hatching \parencite{kimmelStagesEmbryonicDevelopment1995}.
+Furthermore, the swim bouts get shorter and less erratic from 3 to 4 dpf. This seems to be caused by the maturation of dopaminergic neuron which coordinate swimming movement \parencite{mercierRefinementLocomotorActivity2025a}.\\
+The stereotypical behavior of the OMR can first be observed at 4 dpf \parencite{orgerBehavioralScreeningAssays2004b}, while other commonly investigated behaviors, like phototaxis and the optokinetic response are reported to be present as early as 3 dpf \parencite{liZebrafishMutantsBehavioral2001}.\\
 One of the questions explored in this work, is whether this is caused by a lack of neurons, which process or forward the visual information in the brain, or due to the missing coordination needed for goal-directed swimming, as described above, while the OMR circuit is fully functional. Parts of the circuit might also self inhibit themselves, while other part need more time to mature. Therefore, comparing the neural activity between larvae of different ages is crucial to understand the development of these neural circuits.
 
 \subsection{Neuronal gene expression analysis in the larval zebrafish}
 \textit{something cool goes here.}
 
-\subsection{Aims of this work}
-The main motivation when starting this work, was to further investigate and profile the functional cell types involved in decision-making circuits. Previously there had been multiple different approaches like photoactivated axon tracing, neurotransmitter classification, or electron microscopy imaging \cite{boulanger-weillCorrelativeLightElectron2025, slangewalVisuomotorDecisionmakingMultifeature2026}.\\
+\subsection{Aim of this work}
+The main motivation when starting this work, was to further investigate and profile the functional cell types involved in decision-making circuits. Previously there had been multiple different approaches like photoactivated axon tracing, neurotransmitter classification, or electron microscopy imaging \parencite{boulanger-weillCorrelativeLightElectron2025, slangewalVisuomotorDecisionmakingMultifeature2026}.\\
 Here, two other approaches of investigation were as followed; the development of the functional cell types and thereby the neural circuit, and also the gene expression in the neurons, using a publicly available dataset.\\
 This will lead to an even deeper understanding of the cells responsible for vision-based decision making. The developmental aspect showing when these neuron are first detectable, and also how their response develops, while the investigation of gene expression could serve as a first step towards, functional cell type specific, genetic markers.\\
 
@@ -87,7 +86,7 @@ This will lead to an even deeper understanding of the cells responsible for visi
 
 \subsubsection{Used fish lines and handling}
 \label{sec:fishlines}
-Transgenic fish containing either a cytosolic \textit{Tg(elavl3: GCaMP8s)} \cite{zhangFastSensitiveGCaMP2023} or nuclear \textit{Tg(elavl3: H2B-GCaMP8s)}  localized version of the calcium-modulated green fluorophore GCaMP were used. These reporters are already expressed as the larvae hatch \cite{kimProlongedBrainwideExpression2014}.\\
+Transgenic fish containing either a cytosolic \textit{Tg(elavl3: GCaMP8s)} \parencite{zhangFastSensitiveGCaMP2023} or nuclear \textit{Tg(elavl3: H2B-GCaMP8s)}  localized version of the calcium-modulated green fluorophore GCaMP were used. These reporters are already expressed as the larvae hatch \parencite{kimProlongedBrainwideExpression2014}.\\
 All fish were double \textit{mitfa} negative, meaning they produce no pigments and are transparent. Fish were screened for GCaMP expression, embedded in a drop of 2\% agarose  (Ultra Pure Low Melting Point Agarose, 16520-100, Invitrogen) in E3 fish water (5mM NaCl, 0.18mM KCl, 0.33mM CaCl$_2$, 0.4mM MgCl$_2$, buffered with NaHCO$_3$ to pH 7.4), in the center of a petri dish, and oriented with a small pipette tip. The solidified agarose was then covered with E3 water and left for 30min to 1h at 20$^\circ$C in the dark microscopy room, allowing the agarose to completely solidify and the fish to acclimatize.\\
 
 \subsubsection{Microscope setup}
@@ -96,7 +95,7 @@ In this setup, a femtosecond-pulsed, tunable, DeepSee MaiTai Ti:Sapphire laser (
 In addition to the pulsing, the power of the laser was reduced to 15-20$mW$ average power using a $\lambda/2$ plate  (Thorlabs, AHWP05M-980) and Glan-Thompson prism (Thorlabs, GL5-A), which reflects parts of the laser beam into a beam dump (Thorlabs, BT610/M).\\
 Fast moving mirrors, galvanometers (Cambridge Technology), at the top of the microscope, raster the excitation beam across a definable area in  x- and y-direction, while a 25x NA 1.1 objective (CFI75 Apo 25XC W 1300, Nikon) focuses it on a specific z-plane and collects the emitted light.\\
 The fluorescence signal is reflected by a dichroic mirror, passes through a set of filters, and is then detected by a photomultiplier tube (PMT).\\
-A detailed description of the microscope can be found here \cite{slangewalMultifeatureVisualProcessing2026}.\\ % Katja PHD thesis
+A detailed description of the microscope can be found in \cite{slangewalMultifeatureVisualProcessing2026}.\\
 
 \subsubsection{Stimulus configuration}
 \label{sec:stimuli}
@@ -115,11 +114,11 @@ Some fish were imaged overnight for 12 to 15h in repeats, meaning the same 5 or 
 
 \subsubsection{Imaging data preprocessing}
 \label{sec:image preproc}
-To process to two-photon imaging data, \textit{Full2PPreProcessing}, a python 3.12 pipeline created by Katja Slangewal was used \cite{slangewalMultifeatureVisualProcessing2026}.\\
-It applies motion correction using \textit{CaImAn}, aligns the image stack to the different stimuli, binning it to a certain $\Delta t$, creates a time-averaged stack, and performs \textit{cellpose} segmentation \cite{pachitariuCellposeSAMSuperhumanGeneralization2025} on the average image of each plane, creating individual cell segments for which the average pixel value across the segment is taken for each point in time (fluorescence trace) (\autoref{fig:overview}B). As well as, using \textit{ANTs} to anatomically register the time-averaged stack to a reference brain volume.\\
-The above mentioned overview stack were registered to the \textit{ZBrain} reference brain \cite{randlettWholebrainActivityMapping2015} (\autoref{fig:registration}), while the functional planes were first registered to the specific overview stack of the fish, after this, the already acquired transformation from the overview stack to the reference brain was then applied to the functional stack, registering it to the reference brain. This allowed each segmented cell to be assigned to a brain region of the \textit{ZBrain} atlas as well as its brain hemisphere.\\
-\textit{CaImAn} \cite{giovannucciCaImAnOpenSource2019} motion-correction, \textit{cellpose} segmentation, and \textit{ANTs} registration used the default parameters of \textit{Full2PPreProcessing}, after the preprocessing, the results were visually inspected to check if most visible cells were segmented and if the overlay of the transformed image stack and reference looked plausible. The the segmentation or registration parameters were adjusted and rerun until results were deemed satisfactory.\\
-As the registration of the cytosolic GCaMP fish to the \textit{ZBrain} reference proved difficult, these overview stacks were first registered to the \textit{mapzebrain} reference brain \cite{kunstCellularResolutionAtlasLarval2019, MapZebrain}, after which a bridge transform from \textit{mapzebrain} to \textit{ZBrain} could be used to bring them in the same reference system as the other samples.\\
+To process to two-photon imaging data, \textit{Full2PPreProcessing}, a python 3.12 pipeline created by Katja Slangewal was used \parencite{slangewalMultifeatureVisualProcessing2026}.\\
+It applies motion correction using \textit{CaImAn}, aligns the image stack to the different stimuli, binning it to a certain $\Delta t$, creates a time-averaged stack, and performs \textit{cellpose} segmentation \parencite{pachitariuCellposeSAMSuperhumanGeneralization2025} on the average image of each plane, creating individual cell segments for which the average pixel value across the segment is taken for each point in time (fluorescence trace) (\autoref{fig:overview}B). As well as, using \textit{ANTs} to anatomically register the time-averaged stack to a reference brain volume.\\
+The above mentioned overview stack were registered to the \textit{ZBrain} reference brain \parencite{randlettWholebrainActivityMapping2015} (\autoref{fig:registration}), while the functional planes were first registered to the specific overview stack of the fish, after this, the already acquired transformation from the overview stack to the reference brain was then applied to the functional stack, registering it to the reference brain. This allowed each segmented cell to be assigned to a brain region of the \textit{ZBrain} atlas as well as its brain hemisphere.\\
+\textit{CaImAn} \parencite{giovannucciCaImAnOpenSource2019} motion-correction, \textit{cellpose} segmentation, and \textit{ANTs} registration used the default parameters of \textit{Full2PPreProcessing}, after the preprocessing, the results were visually inspected to check if most visible cells were segmented and if the overlay of the transformed image stack and reference looked plausible. The the segmentation or registration parameters were adjusted and rerun until results were deemed satisfactory.\\
+As the registration of the cytosolic GCaMP fish to the \textit{ZBrain} reference proved difficult, these overview stacks were first registered to the \textit{mapzebrain} reference brain \parencite{kunstCellularResolutionAtlasLarval2019, MapZebrain}, after which a bridge transform from \textit{mapzebrain} to \textit{ZBrain} could be used to bring them in the same reference system as the other samples.\\
 The final output of the \textit{Full2PPreProcessing} pipline is an HDF5 file, from which a pandas dataframe, containing each fluorescence trace indexed by \textit{segment ID}, \textit{stimulus}, and \textit{trial}, could be created in python. In this step the cell segments generated by \textit{cellpose} where filtered based on their $area$ and $roundness\ (R)$.\\
 A segment $i$ is valid if;
 \[
@@ -151,7 +150,7 @@ For each segmented cell and stimulus 8 to 20 trials were recorded. In a first st
 \[
     \frac{\Delta F_{i,t}}{F_0} = \frac{F_{i,t} - F_0}{F_0}\ (in\ text\ written\ \Delta F/F_0)
 \]
-where $F_{i,t}$ is the average pixel value of the pixels of one cell segment for trial $i$ at time point $t$, and $F_0$ is the baseline fluorescence for this cell and stimulus, defined by the median across a trials and time points in the pre-stimulus period from 0 to 5s \cite{jiaVivoTwophotonImaging2011}.\\
+where $F_{i,t}$ is the average pixel value of the pixels of one cell segment for trial $i$ at time point $t$, and $F_0$ is the baseline fluorescence for this cell and stimulus, defined by the median across a trials and time points in the pre-stimulus period from 0 to 5s \parencite{jiaVivoTwophotonImaging2011}.\\
 Then cells were deemed active if;
 \[
 max(| \frac{\Delta F_{stim}}{F_0}|) > 0.3\ and\
@@ -161,9 +160,9 @@ where $\sigma = StandardDeviation(F_{pre stim} - F_0)$ across all trials and $F_
 
 \subsubsection{Trial consolidation using Dynamic-Time-Warping}
 \label{sec:dtw trials}
-To summarize these individual traces of active cells into one representative trace, the \textit{TimeSeriesKMeans} class from the python library \textit{tslearn} \cite{tavenardTslearnMachineLearning2020} was used. \textit{Dynamic-Time-Warping (DTW)} is a similarity measure of two time series, it accounts for phase shifts in the signals, which means that fast cell responses, which might not happen at the exact same time, will still be grouped together. For the trial processing, the \textit{Sakoe-Chiba} constraint was set to allow only shifts of 4 time steps (2s) in each direction \cite{sakoeDynamicProgrammingAlgorithm1978b}.\\
+To summarize these individual traces of active cells into one representative trace, the \textit{TimeSeriesKMeans} class from the python library \textit{tslearn} \parencite{tavenardTslearnMachineLearning2020} was used. \textit{Dynamic-Time-Warping (DTW)} is a similarity measure of two time series, it accounts for phase shifts in the signals, which means that fast cell responses, which might not happen at the exact same time, will still be grouped together. For the trial processing, the \textit{Sakoe-Chiba} constraint was set to allow only shifts of 4 time steps (2s) in each direction \parencite{sakoeDynamicProgrammingAlgorithm1978b}.\\
 This method was chosen, over an averaging method like the arithmetic mean or median, because of the observation % add sources
-that neurons will not respond every single time a stimulus is presented. The \textit{DTW} approach avoids flattening the response of cells which respond characteristically but unreliably, through averaging and works on the underlying assumption that there are two groups of trials \textit{no response} and \textit{response}. Therefore, \textit{TimeSeriesKMeans} is set to classify the trials into two clusters. From these classifications the two centroids time series, also called \textit{barycenters} are produced, which are representative "average" traces of the two clusters \cite{petitjeanGlobalAveragingMethod2011}. These centroids are compared using the following score:
+that neurons will not respond every single time a stimulus is presented. The \textit{DTW} approach avoids flattening the response of cells which respond characteristically but unreliably, through averaging and works on the underlying assumption that there are two groups of trials \textit{no response} and \textit{response}. Therefore, \textit{TimeSeriesKMeans} is set to classify the trials into two clusters. From these classifications the two centroids time series, also called \textit{barycenters} are produced, which are representative "average" traces of the two clusters \parencite{petitjeanGlobalAveragingMethod2011}. These centroids are compared using the following score:
 \[
 score_x = P_{95}(C_x) - P_{5}(C_x) - median(|x_t-x_{t+1}|\ for \ t\ \epsilon\ \{0,...,T-1\})
 \]
@@ -178,15 +177,15 @@ After this the trace data for each fish was combined to a multi-index dataframe 
 
 \subsubsection{Functional cell type classification}
 The stereotypical responses of the functional cell types described above (\hyperref[sec:omr]{1.1.2}, \hyperref[sec:phototaxis]{1.1.3}), had been created by either modeling cell types based on behavior experiments (luminance cell types), or by clustering and averaging the responses of cells in the anterior hindbrain (motion cell types).\\
-These regressors were used to calculate a correlation coefficient ($\rho$) for each cell and functional cell type, using the \textit{pearsonr} function of the \textit{scipy.stats} library \cite{virtanenSciPy10Fundamental2020}. For motion cell types only the RDM stimulus in ipsilateral direction was used, while for luminance cell types all four stimuli were used to calculate $\rho$.\\
-Cells with $\rho \geq 0.1$ to a cell type and difference to the next best cell type of 0.05 or greater were assigned this cell type if the \textit{Benjamini-Hochberg} \cite{benjaminiControllingFalseDiscovery1995} corrected false discovery rate of \textit{pearsonr} was less then or equal to 0.05.\\
+These regressors were used to calculate a correlation coefficient ($\rho$) for each cell and functional cell type, using the \textit{pearsonr} function of the \textit{scipy.stats} library \parencite{virtanenSciPy10Fundamental2020}. For motion cell types only the RDM stimulus in ipsilateral direction was used, while for luminance cell types all four stimuli were used to calculate $\rho$.\\
+Cells with $\rho \geq 0.1$ to a cell type and difference to the next best cell type of 0.05 or greater were assigned this cell type if the \textit{Benjamini-Hochberg} \parencite{benjaminiControllingFalseDiscovery1995} corrected false discovery rate of \textit{pearsonr} was less then or equal to 0.05.\\
 
 \subsubsection{Functional clustering of cells}
 \label{sec:met clustering}
-HDBSCAN (\textit{Hierarchical Density-Based Spatial Clustering of Applications with Noise}) \cite{campelloDensityBasedClusteringBased2013, campelloHierarchicalDensityEstimates2015}, is a clustering algorithm which allows for clustering without a upfront definition of how many clusters the data should be assigned to. Additionally it will define samples not well connected to other samples as "noise" and not assign them to any of the "non-noise" clusters. Both of these features are useful for the classification of functional cell types, as it might not be certain how many stereotypical response there are to a given set of stimuli. Furthermore, as many neurons are potentially not responding to the stimulus, or are not really responding in a stereotypical way, this method offers a way to classify these samples as "noise", and therefore sharpen the resulting non-noise clusters.\\
+HDBSCAN (\textit{Hierarchical Density-Based Spatial Clustering of Applications with Noise}) \parencite{campelloDensityBasedClusteringBased2013, campelloHierarchicalDensityEstimates2015}, is a clustering algorithm which allows for clustering without a upfront definition of how many clusters the data should be assigned to. Additionally it will define samples not well connected to other samples as "noise" and not assign them to any of the "non-noise" clusters. Both of these features are useful for the classification of functional cell types, as it might not be certain how many stereotypical response there are to a given set of stimuli. Furthermore, as many neurons are potentially not responding to the stimulus, or are not really responding in a stereotypical way, this method offers a way to classify these samples as "noise", and therefore sharpen the resulting non-noise clusters.\\
 The variables used for the clustering were; the \textit{Pearson} correlation coefficient $\rho$ between the responses of one cell for all stimulus combinations. This allowed for the detection of multifeature cells, which might have similar responses to luminance and visual motion stimuli, as well as directional selective cells, which would show inverse correlation between the two directions. Additionally trace based metrics for each stimulus were calculated: the 90th percentile of the absolute $\Delta F/F_0$ response trace, the time from the start of the stimulus to reach this value, and the time from this point on until the signal was below the 70th percentile of $\Delta F/F_0$ values. These metrics were chosen to broadly capture the shape of the neuronal calcium response, while not being to specific to allow for the formation of broader clusters. Furthermore, the \textit{reliability} metric described above (see \hyperref[sec:dtw trials]{2.2.2}), was added to the clustering variables for every stimulus, as it might be conserved in cells of one functional cell type.\\
 Together, these metrics generated a 22-dimensional feature array, if all four stimuli were used, and a 9-dimensional feature array, if only the two directional RMD stimuli were used for clustering.\\
-Features were scaled to standard score (z-score) using \textit{Scikit-learn's} \cite{pedregosaScikitlearnMachineLearning2011} \textit{StandardScaler} class, then HDBSCAN was run using the implementation in the \textit{Scikit-learn} package. The parameters used for HDBSCAN will be discussed below.\\
+Features were scaled to standard score (z-score) using \textit{Scikit-learn's} \parencite{pedregosaScikitlearnMachineLearning2011} \textit{StandardScaler} class, then HDBSCAN was run using the implementation in the \textit{Scikit-learn} package. The parameters used for HDBSCAN will be discussed below.\\
 
 After this, the non-noise clusters detected were pruned to remove clusters which showed no activity, and also clusters which had high variance across the whole stimulus (spiking up and down), as they are either cells not showing a clear response, or artifacts.\\
 Therefore, two filters were applied, the first removing a cluster $c$ if;
@@ -205,12 +204,12 @@ IQRmax_{c,s} = max(P_{75}(T_{c,s,t})-P_{25}(T_{c,s,t})\ for\ all\ time points\ t
 \]   
 then a one-sided T-test was performed between all other $IQRmax_s$ for a given stimulus $s$ and  $IQRmax_{c,s}$ for the cluster $c$. If the \textit{Benjamini-Hochberg} corrected \textit{fdr} was below 5$\%$ across all stimuli, the cluster was removed.\\
 
-As some of the clusters may be quite similar in the responses of the cells assigned to them, in a next step after pruning, the clusters were consolidated. For this the \textit{barycenters} (see \hyperref[sec:dtw trials]{2.2.2}) of the $\Delta F/F_0$ traces of cells assigned to each cluster were calculated for the used stimuli. The barycenters were then smoothed using a \textit{Savitzky-Golay} filter \cite{savitzkySmoothingDifferentiationData1964}, implemented in \textit{Scipy}, and concatenated, resulting in one $N_{stimuli} \cdot N_{time\ points}$ long array per cluster.\\
+As some of the clusters may be quite similar in the responses of the cells assigned to them, in a next step after pruning, the clusters were consolidated. For this the \textit{barycenters} (see \hyperref[sec:dtw trials]{2.2.2}) of the $\Delta F/F_0$ traces of cells assigned to each cluster were calculated for the used stimuli. The barycenters were then smoothed using a \textit{Savitzky-Golay} filter \parencite{savitzkySmoothingDifferentiationData1964}, implemented in \textit{Scipy}, and concatenated, resulting in one $N_{stimuli} \cdot N_{time\ points}$ long array per cluster.\\
 These arrays were then scaled;
 \[
 A_{scaled} = \frac{A - min(A)}{max(A) - min(A)}
 \]
-and cross-correlated using the \textit{numpy} \cite{harrisArrayProgrammingNumPy2020} function \textit{corrcoef}, which calculates \textit{pearson's} $\rho$ for each combination of clusters. If $\rho$ between any two clusters was above $0.9$, the two top correlating clusters were consolidated.\\
+and cross-correlated using the \textit{numpy} \parencite{harrisArrayProgrammingNumPy2020} function \textit{corrcoef}, which calculates \textit{pearson's} $\rho$ for each combination of clusters. If $\rho$ between any two clusters was above $0.9$, the two top correlating clusters were consolidated.\\
 For this the difference between stimuli responses was calculated from the smoothed, stimulus separated, barycenters of the two correlated clusters, resulting in a time series 
 $\Delta S_s = \{\Delta S_{0,s},...,\Delta S_{T,s}\}$ of differences for each stimulus $s$. The mean differences 
 ($\overline{\Delta S} = \{\overline{\Delta S}_{s},	...,\overline{\Delta S}_{N}\}$ with $N$ being the number of stimuli) for the time points of each stimulus response was then taken. If for any stimulus $s$;
@@ -233,52 +232,35 @@ For the comparison of the number of non-noise cluster created in section \hyperr
 All possible combination resulted in 1080 parameter sets, which were used to cluster the cells of the three different age groups. For each age group clustering was done for cells from any region except the \textit{Telencephalon} and using all four stimuli, and also only for cells in the hindbrain using only the two RMD stimuli.\\
 Then cluster pruning and consolidation, with a maximum of 10 iterations, were run and the number of non-noise clusters noted.\\
 \\
-The parameters for \autoref{fig:clusters3dpf}, \autoref{fig:clusters4dpf}, and \autoref{fig:clusters5dpf} are shown in \autoref{tab:hdbscan_params}. For these samples, cluster pruning and consolidation were also run.\\
-\begin{table}[htb]
-	\centering
-	\caption{HDBSCAN parameter settings for the clustering results shown in \autoref{fig:clusters3dpf}, \autoref{fig:clusters4dpf}, and \autoref{fig:clusters5dpf}.}
-	\label{tab:hdbscan_params}
-	\begin{tabular}{lccc}
-		\hline
-		Parameter & \autoref{fig:clusters3dpf} & \autoref{fig:clusters4dpf} & \autoref{fig:clusters5dpf} \\
-		\hline
-		\textit{Distance metric}                & "cosine" & "cosine" & "cosine" \\
-		\textit{Min.\ samples  }                & 5      & 8      & 10 \\
-		\textit{Min.\ cluster size }            & 30     & 40     & 50 \\
-		\textit{Max.\ cluster size}          & None   & None   & None \\
-		\textit{Cluster selection method}       & "leaf"   & "leaf"   & "eom" \\
-		\textit{Cluster selection $\epsilon$}   & 0      & 0      & 0.1 \\
-		\hline
-	\end{tabular}
-\end{table}
+
 
 \subsection{Gene expression analysis using the WARP dataset}
 \subsubsection{Used data and experimental setup}
-The WARP dataset is a publicly available dataset combining fictive behavior, functional calcium imaging, and gene expression data for 41 genes on a single cell scale. It contains, among other data, neuronal activity of responses to 8 visual stimuli (\autoref{fig:warpfig}).\\
+The WARP dataset is a publicly available dataset combining fictive behavior, functional calcium imaging, and gene expression data for 41 genes on a single cell scale \parencite{marquez-legorretaWholeBrainCoMappingGene2026}. It contains, among other data, neuronal activity of responses to 8 visual stimuli (\autoref{fig:warpfig}).\\
 To extract gene expression information about the functional cell types of interest, four 5 dpf old fish where imaged both with the afore mentioned RDM and split-view luminance stimuli and with a stimuli replicating the WARP stimulus.\\
 The stimuli were: moving bars in four directions, whole field bright luminance and an expanding dark circle on either side of the fish (loom stimulus) (\hyperref[sec:stimuli]{see 2.1.3}, \autoref{fig:warp mi regressors}B). As in the WARP experiments the stimulus duration were presented for a short time (3s) and recorded a faster image acquisition rate of 2$Hz$. The dark stimulus of the WARP dataset was not replicated, because it had even fewer data points then the other stimuli.\\
 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.8\textwidth]{warp_fig1F.png}
-	\caption{Contents of the WARP dataset. (Reprinted from Marquez-Legorreta et al. (2026) Fig. 1F \cite{marquez-legorretaWholeBrainCoMappingGene2026}).}
+	\caption{Contents of the WARP dataset. (Reprinted from \cite{marquez-legorretaWholeBrainCoMappingGene2026} Fig. 1F.}
 	\label{fig:warpfig}
 \end{figure}
 
 \subsubsection{Processing of the WARP dataset}
 \label{sec:warp proc}
-The dataset was downloaded from the \href{https://figshare.com/s/d1d19b105c4f74865c32}{repository} provided in the publication. Trial averaged and normalized traces were split into the different stimuli according to the provided timings. Cells that had traces containing only \textit{NAN} or 0 were removed. Then cells were deemed active if they a higher or equal absolute peak response then the median absolute peak response of all cells, in a least two stimuli.\\
-Then all cells expressing \textit{cx43} were removed as they are likely glia cells.\\
+The dataset was downloaded from the \href{https://figshare.com/s/d1d19b105c4f74865c32}{repository} \parencite{WARP_datasets} provided in the publication \parencite{marquez-legorretaWholeBrainCoMappingGene2026}. Trial averaged and normalized traces were split into the different stimuli according to the provided timings. Cells that had traces containing only \textit{NAN} or 0 were removed. Then cells were deemed active if they a higher or equal absolute peak response then the median absolute peak response of all cells, in a least two stimuli.\\
+Then, all cells expressing \textit{cx43} were removed as they are likely glia cells.\\
 The remaining cells where assigned to the left hemisphere if their x-coordinate was less then 281, and to the right if it was higher then 289. These boundaries were based on the \textit{mapzebrain} reference brain, to which the cells of the WARP dataset are registered to.
 All cells not assigned to one hemisphere were removed. After this, the left/right directional stimuli were renamed to \textit{ipsi}/\textit{contra } based on the hemisphere the cell was on.\\
 
 \subsubsection{Identification of motion integrator cells in the WARP dataset}
 \label{sec:warp mi}
 As there were two different sets stimuli used to make the connection between the functional cell types described above (\hyperref[sec:omr]{1.1.2}, \hyperref[sec:phototaxis]{1.1.3}) with the WARP dataset, and due to the processing of the imaging data, the same cell segments had to be found in both functional imaging stacks to be able to compare the cells responses to all stimuli.\\
-To achieve this the distances between xy-centroids of all cell segments after registration to the overview stack (see \hyperref[sec:image preproc]{2.1.5}) were calculated using \textit{scipy.spatial.cKDTree} class \cite{maneewongvatanaAnalysisApproximateNearest1999}.\\
+To achieve this the distances between xy-centroids of all cell segments after registration to the overview stack (see \hyperref[sec:image preproc]{2.1.5}) were calculated using \textit{scipy.spatial.cKDTree} class \parencite{maneewongvatanaAnalysisApproximateNearest1999}.\\
 From this distance matrix, for each cell segment, the closest segments within a $2\mu m$ radius, were selected and checked if their shape was similar based on area and perimeter (compare \hyperref[sec:image preproc]{2.1.5}). If these parameters were at least 80\% similar, they were noted as a match.\\     
 MI cells were then identified using the regressor trace (\autoref{fig:overview}D, \autoref{fig:warp mi regressors}A). Cells were classified as a MI if they had a \textit{pearson} $\rho$ greater or equal then 0.7 for the MI regressor and at least 0.1 difference to the next best cell type.\\
-Then the average trace of the recreate WARP stimuli for these cells were created using \textit{tslearn's softdtw\_barycenters} \cite{tavenardTslearnMachineLearning2020, cuturiSoftDTWDifferentiableLoss2017}. For this the moving bars in all four directions as well as the loom stimuli, but not the whole field luminance stimulus, were used, as there was little response of the MI cells to this stimulus. (\autoref{fig:warp mi regressors}C, D)\\
+Then the average trace of the recreate WARP stimuli for these cells were created using \textit{tslearn's softdtw\_barycenters} \parencite{tavenardTslearnMachineLearning2020, cuturiSoftDTWDifferentiableLoss2017}. For this the moving bars in all four directions as well as the loom stimuli, but not the whole field luminance stimulus, were used, as there was little response of the MI cells to this stimulus. (\autoref{fig:warp mi regressors}C, D)\\
 Using these average responses to the stimuli, cells from the WARP dataset were selected based if their Pearson correlation coefficient was 0.5 or higher.\\
 From these correlated cells, cells assigned to the \textit{rhombencephalon} region of the reference brain and within the bounds of $185 < x < 385,\ 460 < y < 630$, were selected as potential MI cells.\\
 
@@ -295,9 +277,9 @@ The Wasserstein distance between the MI cell subset and the full cell set was us
 \subsubsection{Imaging set-up}
 Our two-photon-microscope setup allows us to project a visual stimulus from underneath alive larvae fixed with agarose , while simultaneously acquiring single-cell-resolution fluorescence brain images at a rate of  1 to 2$Hz$. The pan-neuronally expressed nuclear calcium indicator GCaMP (\hyperref[sec:fishlines]{see 2.1.1}) changes its fluorescence based on the calcium concentration in the cell, which serves as an indirect read-out for the activity of the neuron (\autoref{fig:overview}B).\\
 The main stimuli presented for this work started with flickering dots, which then either started to move horizontally, so called random-dot-motion (RDM), or stayed flickering stationary, while the background turn brighter on one and darker on the other side of the midline of the fish, creating a split-view luminance stimulus (\hyperref[sec:stimuli]{see 2.1.2} and \autoref{fig:overview}A).\\
-As shown previously \cite{bahlNeuralCircuitsEvidence2020, boulanger-weillCorrelativeLightElectron2025}
+As shown previously \parencite{bahlNeuralCircuitsEvidence2020, boulanger-weillCorrelativeLightElectron2025}
 the RDM stimulus activates a circuit of functionally and anatomically defined neurons in the anterior hindbrain, which elicit the OMR.
-The luminance stimuli also activate neurons with specific reactions to the overall brightness or the change in it. These functional cell types have also been validated through behavior experiments \cite{slangewalVisuomotorDecisionmakingMultifeature2026}.\\
+The luminance stimuli also activate neurons with specific reactions to the overall brightness or the change in it. These functional cell types have also been validated through behavior experiments \parencite{slangewalVisuomotorDecisionmakingMultifeature2026}.\\
 For fish aged  3, 4, and 5 dpf, multiple different z-planes were imaged, focusing on the anterior hindbrain, the optic tectum and parts of the pretectum, as the cells of interest described above are found in these regions (see \hyperref[sec:omr]{1.1.2}, \hyperref[sec:phototaxis]{1.1.3}).\\
 On each of the z-planes the stimuli were presented in random order for 8 to 20 times. Some fish were imaged overnight, recording cell activity from the same z planes about every  3 hours.
 In total four larva were imaged at 3 dpf, four overnight from 3 to 4 dpf, one at 4 dpf, two from 4 to 5 dpf, and seven at 5 dpf.\\
@@ -308,7 +290,7 @@ This made it possible to compare neuronal responses across age population but al
 	\includegraphics[width=\textwidth, trim=0mm 25mm 10mm 0mm]{overview_stim_regressors.pdf}
 	\caption{Overview of the functional imaging and the regressor traces.\\
     \textbf{A}: Stimulus configuration; 5s of flickering dots on grey followed by 25s of one of four stimuli, with 10s of flickering dots post stimulus time. \textbf{B}: Visualization of the two-photon imaging workflow; the cell segmentation allows for the investigation of each cells response to the stimuli.\\
-    \textbf{C}: Theoretical responses in all four stimuli for the luminance cell types \cite{slangewalVisuomotorDecisionmakingMultifeature2026}. \textbf{D}: Average responses to the ipsilateral RDM stimulus for the hindbrain OMR cell types \cite{boulanger-weillCorrelativeLightElectron2025}.\\
+    \textbf{C}: Theoretical responses in all four stimuli for the luminance cell types \parencite{slangewalVisuomotorDecisionmakingMultifeature2026}. \textbf{D}: Average responses to the ipsilateral RDM stimulus for the hindbrain OMR cell types \parencite{boulanger-weillCorrelativeLightElectron2025}.\\
     (LI: luminance integrator, MON: motion onset, MI: motion integrator, SMI: slow motion integrator)
     }
 	\label{fig:overview}
@@ -358,10 +340,10 @@ This shows that, even though 3dpf larvae show few robust observable behaviors, t
 \subsection{Age dependent analysis of luminance and motion responses}
 
 \subsubsection{Regressor classification of known functional cell types}
-As described above, the functional cell types that respond most prominently, and are thought to be responsible for the larva's behavior, were already investigated and described previously in 5 dpf fish \cite{bahlNeuralCircuitsEvidence2020, slangewalVisuomotorDecisionmakingMultifeature2026, boulanger-weillCorrelativeLightElectron2025} (\autoref{fig:introduction}).\\
+As described above, the functional cell types that respond most prominently, and are thought to be responsible for the larva's behavior, were already investigated and described previously in 5 dpf fish \parencite{bahlNeuralCircuitsEvidence2020, slangewalVisuomotorDecisionmakingMultifeature2026, boulanger-weillCorrelativeLightElectron2025} (\autoref{fig:introduction}).\\
 Two subsets of calcium response regressors were used to classify neurons from larvae of 3, 4 and 5 dpf.
-The first set of regressors contained the characteristic responses of hindbrain OMR cells (\textit{Motion Integrator} (MI), \textit{Motion Onset} (MON), and \textit{Slow Motion Integrator} (SMI)) to motion in their preferred direction (equal to the hemisphere they are on). These response traces were derived from the average responses of hindbrain neurons classified as one of the three functional cell types \cite{boulanger-weillCorrelativeLightElectron2025}.
-The second set was used to detect cells that respond to the changes in luminance during the split-view stimulus, while not having a response to the motion stimuli (\textit{Bright}, \textit{Dark}, \textit{Change}, and \textit{Luminance Integrator} (LI) ). In this case, the regressors stem from a mathematical model created from 5 dpf behavior experiment data using the same split-view luminance and RDM stimuli \cite{slangewalVisuomotorDecisionmakingMultifeature2026}.\\ 
+The first set of regressors contained the characteristic responses of hindbrain OMR cells (\textit{Motion Integrator} (MI), \textit{Motion Onset} (MON), and \textit{Slow Motion Integrator} (SMI)) to motion in their preferred direction (equal to the hemisphere they are on). These response traces were derived from the average responses of hindbrain neurons classified as one of the three functional cell types \parencite{boulanger-weillCorrelativeLightElectron2025}.
+The second set was used to detect cells that respond to the changes in luminance during the split-view stimulus, while not having a response to the motion stimuli (\textit{Bright}, \textit{Dark}, \textit{Change}, and \textit{Luminance Integrator} (LI) ). In this case, the regressors stem from a mathematical model created from 5 dpf behavior experiment data using the same split-view luminance and RDM stimuli \parencite{slangewalVisuomotorDecisionmakingMultifeature2026}.\\ 
 Cells were assigned a functional cell type based on the regressors, if they had a significant correlation coefficient ($\rho$) of 0.1 or above, at least 0.05 higher then the next highest correlating cell type.\\
 For the OMR regressor set only cells assigned to the \textit{Rhombencephalon} region of the  reference brain atlas were used, as the cell types of interest are proposed to be located there, while luminance sensitive could be located in the \textit{Diencephalon}, \textit{Mesencephalon}, or \textit{Rhombencephalon}.\\
 This cell type classification revealed that, while characteristic luminance sensitive cell types could already be identified at similar frequency and with similar or higher average $\rho$ at the age of 3 dpf, compared to 4 and 5 dpf, except for LI cells, where $\rho$ was significantly lower in 3 dpf then in 4 and 5dpf larva. On the other hand, all three cell types believed to be responsible for OMR were less frequently detected in the hindbrain of 3 dpf fish, and the correlation coefficients were significantly lower then in larvae ages 4 or 5 dpf and $\rho$ was significantly higher in 5 then in 4 dpf fish. Showing a continuous increase in OMR cell activity during aging from 3 to 5 dpf. (\autoref{fig:boxplots corr}, \autoref{fig:corr traces}).\\
@@ -391,7 +373,7 @@ These differences between the two regressor sets suggest that while neurons dete
 \afterpage{\FloatBarrier}
 
 \subsubsection{Age differences in regional activity}
-As described above, the fraction of active cells rises with age in most annotated regions of the brain. Comparing the active cell fractions at the different ages in hindbrain regions, showed that some of the highest changes in the fraction of active cells are in the regions in which the OMR cells are detected, namely Rhombencephalon Gad1b clusters 1, 2, and 17 \cite{bahlNeuralCircuitsEvidence2020} (\autoref{fig:changing regions}).
+As described above, the fraction of active cells rises with age in most annotated regions of the brain. Comparing the active cell fractions at the different ages in hindbrain regions, showed that some of the highest changes in the fraction of active cells are in the regions in which the OMR cells are detected, namely Rhombencephalon Gad1b clusters 1, 2, and 17 \parencite{bahlNeuralCircuitsEvidence2020} (\autoref{fig:changing regions}).
 Furthermore, selecting \textit{Rhombencephalon} regions which showed a change in the fraction of activity higher then the median, and looking at the median response to the RDM stimulus (\autoref{fig:region activity}A), of the cells located in these regions for each age, revealed that the median trace of 4 and 5 dpf fish had a clear response to the stimulus in most of hindbrain regions with the highest change in the fraction of active cells, while for the 3 dpf median trace no clear coordinated response was detectable.\\
 In addition to this, comparing the regressor OMR cell type classification between ages, for each of the top changing hindbrain regions, showed that there are significant differences in $\rho$  (\autoref{fig:region activity}B).\\
 For example the median $\rho$ of cells 3 dpf in the Gad1b cluster 1 are 0.47 for MI, 0.53 for MON, and 0.56 for SMI cells, while the median $\rho$ is 0.86, 0.7, 0.82 for those cell types of 5 dpf fish in this region. Gad1b cluster 2 shows similar values, which go from 0.42, 0.47, and 0.48 at 3 dpf to 0.78, 0.72, 0.79 at 5 dpf. In other regions, not all median cell type correlations change significantly, in Gad1b cluster 17 median $\rho$ changes between 3 and 5 dpf, from 0.45 and 0.56 to 0.81 and 0.86 in MI and SMI cells while staying relatively unchanged for MON cells (0.54 to 0.62). Two other interesting regions are Gad1b cluster 16 and Gad1b Stripe 1, which show high increases in median $\rho$ for the SMI cell type (0.7, 0.74 at 5 dpf and 0.46, 0.51 at 3 dpf).\\
@@ -433,6 +415,8 @@ Furthermore, the 3 dpf clusters show very little response to the RDM motion stim
 	\includegraphics[width=.7\textwidth, trim=0mm 0mm 0mm 10mm]{3dpf_clusters.pdf}
 	\caption{
 		Traces of four functional cluster created from neuronal responses of 3 dpf cells, from all imaged brain regions, to the four depicted stimuli (left side is ipislateral), through HDBSCAN clustering. 
+		Main bold line is the median all cells classified as one cell type. Colored shaded area indicates the 1st and 3rd quartile. The gray shaded area marks the time during which the stimulus is active. 
+		Thin gray lines are the $\Delta F / F_0$ traces of single cells assigned to this cluster.
 	}
 	\label{fig:clusters3dpf}
 \end{figure}
@@ -442,6 +426,8 @@ Furthermore, the 3 dpf clusters show very little response to the RDM motion stim
 	\includegraphics[width=.85\textwidth, trim=0mm 0mm 0mm 30mm]{4dpf_clusters.pdf}
 	\caption{
 		Traces of five functional cluster created from neuronal responses of 4 dpf cells, from all imaged brain regions, to the four depicted stimuli (left side is ipislateral), through HDBSCAN clustering. 
+		Main bold line is the median all cells classified as one cell type. Colored shaded area indicates the 1st and 3rd quartile. The gray shaded area marks the time during which the stimulus is active. 
+		Thin gray lines are the $\Delta F / F_0$ traces of single cells assigned to this cluster.
 	}
 	\label{fig:clusters4dpf}
 \end{figure}
@@ -451,6 +437,8 @@ Furthermore, the 3 dpf clusters show very little response to the RDM motion stim
 	\includegraphics[width=\textwidth, trim=0mm 0mm 0mm 20mm]{5dpf_clusters.pdf}
 	\caption{
 		Traces of six functional cluster created from neuronal responses of 5 dpf cells, from all imaged brain regions, to the four depicted stimuli (left side is ipislateral), through HDBSCAN clustering. 
+		Main bold line is the median all cells classified as one cell type. Colored shaded area indicates the 1st and 3rd quartile. The gray shaded area marks the time during which the stimulus is active. 
+		Thin gray lines are the $\Delta F / F_0$ traces of single cells assigned to this cluster.
 	}
 	\label{fig:clusters5dpf}
 \end{figure}
@@ -508,57 +496,89 @@ The response traces, of the selected cells from the WARP dataset, show the same 
 
 \subsubsection{Differential gene expression of MI cells}
 From these cells with matching functional activity, cells located in the same region of the anterior hindbrain as the MI cells identified through the RDM stimulus (\autoref{fig:warp brain}), were then selected and their gene expression counts compared the other annotated cells in the same region. This revealed six significantly overexpressed genes; \textit{otpa, gad1b, npb, tac1, vglut2a} and \textit{irx1b}, as well as six underexpressed genes; \textit{calb2a, zic2a, glyt2, esrrb, nefma} and \textit{grm1b} (\autoref{fig:volcano}).\\
-\textit{Gad1b} and \textit{vglut2a} are markers for neurons releasing the neurotransmitters GABA or glutamate \cite{higashijimaDistributionProspectiveGlutamatergic2004}. These genes being overexpressed in putative MI cells, fits with the current view of the OMR hindbrain circuit, as there are mostly inhibitory, \textit{gad1b$^+$}, as well as excitatory \textit{vglut2a$^+$} MIs (see \hyperref[sec:omr]{1.1.2}).\\
-\textit{Npd} encodes \textit{neuropeptide B}, a small peptide which often gets co-released with other neurotransmitters, such as \textit{GABA} or \textit{glutamate} \cite{nusbaumFunctionalConsequencesNeuropeptide2017}. \textit{Neuropeptide B} secreting cells can have a wide range of functions, including feeding and social behaviors, but is not very well studied in zebrafish as the receptor system in teleosts seems to differ from mammals and birds \cite{buCharacterizationNeuropeptideNPB2016}.\\
-\textit{Tac1} encodes the \textit{tachykinin precursor 1} gene, from which the neuropeptides \textit{substance P} and \textit{neurokinin A} are cleaved \cite{ogawaCloningExpressionTachykinins2012}. 
-In mammals \textit{substance P} is often co-secreted with \textit{glutamate} \cite{caoPrimaryAfferentTachykinins1998} and serves as a neuromodulator. In general \textit{tac1} expression seems to be crucial for the development of motor neurons \cite{ushakovaTachykininNeuropeptidesAre2026}, but tachykinins seem to have wide spread neuromodulatory functions \cite{nasselTachykininsNeuropeptidesThat2019}.\\
-The last two genes, \textit{otpa} and \textit{irx1b} are transcription factors, which play important roles in the differentiation of neuronal subtypes \cite{fernandesOrthopediaTranscriptionFactor2013, stedmanFunctionalInteractionIrx2009} and therefore might be essential for the development of the functional celltypes found in the OMR hindbrain circuit.\\ 
- 
-As depicted in \autoref{fig:expression heatmap}, the over-expressed genes are not all expressed in one cell, but seem to form different subtypes. The most abundant of these, seems to be \textit{gad1b}, which is often co-expressed with \textit{otpa}. Comparing to the publication of the WARP dataset (see Marquez-Legorreta et al. Fig. S10 \cite{marquez-legorretaWholeBrainCoMappingGene2026}), the \textit{gad1b/otpa} subtype seems to response to visual motion or luminance stimuli, is typically located in the hindbrain, and shows positive response to ipsi-, and negative response to contralateral motion, which fits the general behavior of MI cells. Additionally, it also seems to react to luminance so it might potentially be associated with the \textit{Multifeature} cells described by Slangewal et al. \cite{slangewalVisuomotorDecisionmakingMultifeature2026} (see also \hyperref[sec:phototaxis]{1.1.3}, \autoref{fig:introduction}D).\\
-Furthermore, this divers gene expression among the putative MIs, might also hint towards these cells being multiple functional cell types. The stimulus presentation and functional calcium recording, could possibly be to short to be able to disentangle the differences between MI, MON and SMI cells.\\
+\textit{Gad1b} and \textit{vglut2a} are markers for neurons releasing the neurotransmitters GABA or glutamate \parencite{higashijimaDistributionProspectiveGlutamatergic2004}. These genes being overexpressed in putative MI cells, fits with the current view of the OMR hindbrain circuit, as there are mostly inhibitory, \textit{gad1b$^+$}, as well as excitatory \textit{vglut2a$^+$} MIs (see \hyperref[sec:omr]{1.1.2}).\\
+\textit{Npd} encodes \textit{neuropeptide B}, a small peptide which often gets co-released with other neurotransmitters, such as \textit{GABA} or \textit{glutamate} \parencite{nusbaumFunctionalConsequencesNeuropeptide2017}. \textit{Neuropeptide B} secreting cells can have a wide range of functions, including feeding and social behaviors, but is not very well studied in zebrafish as the receptor system in teleosts seems to differ from mammals and birds \parencite{buCharacterizationNeuropeptideNPB2016}.\\
+\textit{Tac1} encodes the \textit{tachykinin precursor 1} gene, from which the neuropeptides \textit{substance P} and \textit{neurokinin A} are cleaved \parencite{ogawaCloningExpressionTachykinins2012}. 
+In mammals \textit{substance P} is often co-secreted with \textit{glutamate} \parencite{caoPrimaryAfferentTachykinins1998} and serves as a neuromodulator. In general \textit{tac1} expression seems to be crucial for the development of motor neurons \parencite{ushakovaTachykininNeuropeptidesAre2026}, but tachykinins seem to have wide spread neuromodulatory functions \parencite{nasselTachykininsNeuropeptidesThat2019}.\\
+The last two genes, \textit{otpa} and \textit{irx1b} are transcription factors, which play important roles in the differentiation of neuronal subtypes \parencite{fernandesOrthopediaTranscriptionFactor2013, stedmanFunctionalInteractionIrx2009} and therefore might be essential for the development of the functional celltypes found in the OMR hindbrain circuit.\\
 
-Selecting all of the hindbrain cells in the defined bounds (see \hyperref[sec:warp mi]{2.3.3}) for the expression of a combination of two 
-
+As depicted in \autoref{fig:expression heatmap}, the over-expressed genes are not all expressed in one cell, but seem to form different subtypes. The most abundant of these, seems to be \textit{gad1b}, which is often co-expressed with \textit{otpa}. Comparing to the publication of the WARP dataset (see Marquez-Legorreta et al. Fig. S10 \parencite{marquez-legorretaWholeBrainCoMappingGene2026}), the \textit{gad1b/otpa} subtype seems to response to visual motion or luminance stimuli, is typically located in the hindbrain, and shows positive response to ipsi-, and negative response to contralateral motion, which fits the general behavior of MI cells. Additionally, it also seems to react to luminance so it might potentially be associated with the \textit{Multifeature} cells described by Slangewal et al. \parencite{slangewalVisuomotorDecisionmakingMultifeature2026} (see also \hyperref[sec:phototaxis]{1.1.3}, \autoref{fig:introduction}D).\\
+Furthermore, this divers gene expression among the putative MIs, might also hint towards these cells being multiple functional cell types, as they might not be homogeneous in their gene expression profile. Potentially the correlation cutoff was chosen too loosely, and too many similar responding cells were classified as MIs, although higher minimum $\rho$ cutoffs yielded too few cells to do meaningful statistics. Another factor could be the short (3s) duration of the stimulus presentation of the WARP dataset, which could be too short, to be able to disentangle the differences between MI, MON, SMI cells, and other neuron responding to visual motion.\\
+Nevertheless, this connection of functional imaging and gene expression data, shows the 
 
 
-\begin{figure}[htb]
-    \centering
+\begin{figure}[tb]
+	\centering
 	\includegraphics[width=0.8\textwidth]{volcano_warp.pdf}
 	\caption{
-    Changes in the expression of genes. \textit{False discovery rate} (fdr) calculated from the p-values of a two-sided Mann-Whitney U test between gene counts of the selected cells (\autoref{fig:warp brain}B) and all other cells in the same region, using the Benjamini-Hochberg procedure. \textit{Effect size} is the Wasserstein distance between the same gene counts with the sign dependent on the median non-zero gene counts in each group. Genes are colored if they have a fdr $<$ 0.05 and the difference between Wasserstein distance of the real subset and median of the distances of 10,000 random same size subsets was larger then 1.
-    }
+		Changes in the expression of genes between putative MIs and other anterior hindbrain cells in the WARP dataset. \textit{False discovery rate} (fdr) calculated from the p-values of a two-sided Mann-Whitney U test between gene counts of the selected cells (\autoref{fig:warp brain}B) and all other cells in the same region, using the Benjamini-Hochberg procedure. \textit{Effect size} is the Wasserstein distance between the same gene counts with the sign dependent on the median non-zero gene counts in each group. Genes are colored if they have a fdr $<$ 0.05 and the difference between Wasserstein distance of the real subset and median of the distances for 10,000 random same size subsets was larger then 1.
+	}
 	\label{fig:volcano}
 \end{figure}
 
 
 \begin{figure}[htb]
-    \centering
+	\centering
 	\includegraphics[width=0.8\textwidth, trim=10mm 0mm 0mm 0mm]{expression_heatmap.pdf}
 	\caption{Relative expression of the overexpressed genes in the putative Motion Integrator cells of the WARP dataset. Each row is one of 654 cells. Spot counts of HCR-FISH labeling are normalized for each gene. Black indicates that a gene was not detected in a cell.
-    }
+	}
 	\label{fig:expression heatmap}
 \end{figure}
+
+\subsubsection{Linking gene expression to functional calcium imaging}
+Selecting, from all of the hindbrain cells in the defined bounds (see \hyperref[sec:warp mi]{2.3.3}), cells expressing two or more of the six overexpressed genes (expression being defined as at least one spot count), if there were at least 50 cells expressing one of the gene combinations, and comparing their correlation (\textit{pearson's} $\rho$) with the WRAP MI regressors (\autoref{fig:warp mi regressors}D), showed that the genetic subtype \textit{tac1, irx1b, gad1b, otpa}, had the highest median \textit{pearson's} $\rho$ of the compared gene expression groups. In general, groups with significantly higher $\rho$-values, were all expressing either \textit{gad1b}, \textit{otpa}, or both genes. Furthermore, \textit{tac1} was among four of the five subtypes with the highest $\rho$, suggesting a key role in defining MI neurons (\autoref{fig:warp gene type corr}).\\
+
+However, when inspecting the average functional fluorescence traces of six genetic subtypes with the highest median  $\rho$, the strongest response is elicited by the forward, and not by the ipsilateral moving bars (\autoref{fig:warp gene type traces}). Although, for the \textit{nbp, gad1b, otpa} group, there seems to be a slight increase during the ipsilateral motion stimulus' 3rd quartile, even though the median shows no response. Similarly, the \textit{tac1, irx1b, gad1b, opta} expressing cells show a response to the ipsilateral loom stimulus, suggesting these neurons could be important for the processing of such stimuli.\\      
+
+
+
 
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=\textwidth, trim=8mm 0mm 0mm 0mm]{warp_correlation_gene_types.pdf}
-	\caption{\textit{Pearson's} correlation coefficient $\rho$ to the MI regressor traces for all WARP cells in the selected hindbrain area (see \hyperref[sec:warp mi]{2.3.3}), grouped by expression of the overexpressed genes. Red lines indicate the median. Stars are the Benjamini-Hochberg corrected \textit{fdr} of a one-sided Mann-Whitney U-test, between the cells and all other cells in the selected hindbrain area 
+	\caption{\textit{Pearson's} correlation coefficient $\rho$ to the MI regressor traces for all WARP cells in the selected hindbrain area (see \hyperref[sec:warp mi]{2.3.3}), grouped by expression of the overexpressed genes. Cells were assigned to a subtype if they had at least one spot count for two, or more, of the six overexpressed gene and none for the others. Not shown are subtypes with less then 5 cells The  Red lines indicate the median $\rho$ of the group. Stars are the Benjamini-Hochberg corrected \textit{fdr} of a one-sided Mann-Whitney U-test, between the cells of one group, and all other cells in the selected hindbrain area 
 	($***:\ fdr < 5 \cdot 10^{-4}$). Colored lines mark different percentiles of $\rho$ of all selected hindbrain area cells.} 
-	\label{fig:warp gene type corr}
+	\label{fig:warp gene type corr} 
 \end{figure}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{warp_traces_gene_types.pdf}
-	\caption{aaaaaa}
+	\caption{Average $\Delta F/F_0$ fluorescence traces for cells of the six overexpressed gene subtypes with the highest median correlation coefficient to the MIs regressors (see \autoref{fig:warp gene type corr}). 
+	Main bold line is the median all cells classified as one cell type. Colored shaded area indicates the 1st and 3rd quartile. The gray shaded area marks the time during which the stimulus is active. Stimuli are indicated on the left. Left side is the ipsilateral side to the hemisphere a cell is on.
+	}
 	\label{fig:warp gene type traces}
 \end{figure}
 
-\section{Discussion}
+\section{Discussion and Outlook}
 
-\section{Outlook}
+
 
 \clearpage
-\printbibliography
 
+\section{References}
+\printbibliography[heading=none]
+
+\section{Supplementary data}
+{\footnotesize
+The parameters for \autoref{fig:clusters3dpf}, \autoref{fig:clusters4dpf}, and \autoref{fig:clusters5dpf} are shown in the table below. For these samples, cluster pruning and consolidation were also run (see \hyperref[sec:met clustering]{2.2.4}).\\
+\begin{table}[htb]
+	\centering
+	\footnotesize
+	\begin{tabular}{lccc}
+		\hline
+		Parameter & \autoref{fig:clusters3dpf} & \autoref{fig:clusters4dpf} & \autoref{fig:clusters5dpf} \\
+		\hline
+		\textit{Distance metric}                & "cosine" & "cosine" & "cosine" \\
+		\textit{Min.\ samples  }                & 5      & 8      & 10 \\
+		\textit{Min.\ cluster size }            & 30     & 40     & 50 \\
+		\textit{Max.\ cluster size}          & None   & None   & None \\
+		\textit{Cluster selection method}       & "leaf"   & "leaf"   & "eom" \\
+		\textit{Cluster selection $\epsilon$}   & 0      & 0      & 0.1 \\
+		\hline
+	\end{tabular}
+\end{table}
+}
 \end{document}
+
+
