@@ -14,7 +14,7 @@
 \usepackage{pdfpages}
 \usepackage[style=authoryear, sorting=nyt, url=false]{biblatex}
 \addbibresource{Masterarbeit.bib}
-\renewcommand*{\bibfont}{\footnotesize}
+\renewcommand*{\bibfont}{\scriptsize}
 
 \title{Molecular and Functional Profiling of Motion-Sensitive Neurons in the Developing Zebrafish Hindbrain}
 \author{Max Widmann}
@@ -32,11 +32,6 @@
 \newpage
 
 \includepdf[pages=-]{erklaerung_ki.pdf}
-
-\newpage
-\null
-\thispagestyle{empty}
-\newpage
 
 \tableofcontents
 \listoffigures
@@ -597,7 +592,7 @@ However, when inspecting the average functional fluorescence traces of six genet
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=\textwidth, trim=8mm 0mm 0mm 0mm]{warp_correlation_gene_types.pdf}
-	\caption[Correlation of genetic subsets to the MI regressors]{\textit{Pearson's} correlation coefficient $\rho$ to the MI regressor traces for all WARP cells in the selected hindbrain area (see \hyperref[sec:warp mi]{2.3.3}), grouped by expression of the overexpressed genes. Cells were assigned to a subtype if they had at least one spot count for two, or more, of the six overexpressed gene and none for the others. Not shown are subtypes with less then 5 cells The  Red lines indicate the median $\rho$ of the group. Stars are the Benjamini-Hochberg corrected \textit{fdr} of a one-sided Mann-Whitney U-test, between the cells of one group, and all other cells in the selected hindbrain area
+	\caption[Correlation of genetic subsets to the MI regressors]{\textit{Pearson's} correlation coefficient $\rho$ to the MI regressor traces for all WARP cells in the selected hindbrain area (see \hyperref[sec:warp mi]{2.3.3}), grouped by expression of the overexpressed genes. Cells were assigned to a subtype if they had at least one spot count for two, or more, of the six overexpressed gene and none for the others. Not shown are subtypes with less then 5 cells. Thick red lines indicate the median $\rho$ of the group. Stars are the Benjamini-Hochberg corrected \textit{fdr} of a one-sided Mann-Whitney U-test, between the cells of one group, and all other cells in the selected hindbrain area
 	($***:\ fdr < 5 \cdot 10^{-4}$). Colored lines mark different percentiles of $\rho$ of all selected hindbrain area cells.}
 	\label{fig:warp gene type corr}
 \end{figure}
@@ -635,6 +630,9 @@ Circling back to the other part of this work, gene expression is very important 
 In summary, this is an exciting new a approach to mechanistic neuroscience and adds another dimension to the attempt of understanding animals' behaviors and brains.\\
 
 \clearpage
+\section*{\large Acknowledgments}
+
+
 \section*{\large References}
 \addcontentsline{toc}{section}{References}
 \printbibliography[heading=none]
