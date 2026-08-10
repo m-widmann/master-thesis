@@ -1,9 +1,9 @@
 # %%
 import numpy as np
 import pandas as pd
-from analysis_helpers.analysis.personal_dirs.Max_W.utils.two_p_image_analysis_tools \
+from two_p_image_analysis_tools \
     import get_segmented_signals_multiindex_df, get_experiment_information
-from analysis_helpers.analysis.personal_dirs.Max_W.utils.trace_processing \
+from dtw_trial_processing \
     import dtw_clustering_to_get_response_trials
 from pathlib import Path
 import warnings
@@ -44,7 +44,7 @@ def normalize_and_detect_activity(df, window, threshold, min_fraction_active, k=
     cell_idx = {c: i for i, c in enumerate(cell_names)}
     stim_idx = {s: i for i, s in enumerate(stim_names)}
 
-    # create array to apply trail culstering to
+    # create array to apply trail clustering to
 
     max_no_trials = df.groupby(['cell_name', 'stimulus']).size().max()
     n_cells = len(cell_idx)
@@ -259,7 +259,7 @@ if __name__ == "__main__":
             region_df=regions[stim_type],
         )
         clustered_df.to_csv(
-            fr"C:\Users\ag-bahl\Desktop\Max\master_thesis\2p_functional_imaging\dataframes\WARP\{today}_trial-clustering_{stim_name}_k6-th{str(activity_threshold).replace('.','')}-frac03.tsv",
+            fr".\data\WARP\{today}_trial-clustering_{stim_name}_k6-th{str(activity_threshold).replace('.','')}-frac03.tsv",
             sep='\t',
         )
 
@@ -286,57 +286,6 @@ if __name__ == "__main__":
             region_df=regions,
         )
         clustered_df.to_csv(
-            fr"C:\Users\ag-bahl\Desktop\Max\master_thesis\2p_functional_imaging\dataframes\3to5dpf\{today}_trial-clustering_{tag}_k6-th03-frac03.tsv",
+            fr".\data\3to5dpf\{today}_trial-clustering_{tag}_k6-th03-frac03.tsv",
             sep='\t',
         )
-
-
-# #%%
-# df_dir = Path(r'C:\Users\ag-bahl\Desktop\Max\master_thesis\2p_functional_imaging\dataframes')
-# df_paths = [p for p in df_dir.glob('*_fish2026*.tsv') if not '007' in p.name]
-# full_clustered_df = [pd.read_csv(p, sep='\t', index_col=list(range(8))) for p in df_paths]
-# full_clustered_df = pd.concat(full_clustered_df)
-# full_clustered_df.reset_index(inplace=True, drop=False)
-# full_clustered_df['fish_id'] = [s.replace('f','') for s in full_clustered_df['fish_id']]
-# full_clustered_df['age'] = full_clustered_df['fish_id'].map(id_to_age)
-# stim_dict = {x: x for x in full_clustered_df['stimulus'].unique()}
-# for k in stim_dict.keys():
-#     if 'dots' in k:
-#         if 'lumi' in k:
-#             continue
-#         stim_dict[k] = 'lumi_off_' + k
-#     elif 'lumi' in k:
-#         stim_dict[k] = k + '_dots_off'
-# full_clustered_df['stimulus'] = full_clustered_df['stimulus'].map(stim_dict)
-# full_clustered_df.set_index(
-#     ['fish_id', 'age', 'region', 'fine_region', 'repeat', 'z_plane', 'cell_number', 'cell_name', 'stimulus'], inplace=True)
-# full_clustered_df.to_csv(
-#     rf"C:\Users\ag-bahl\Desktop\Max\master_thesis\2p_functional_imaging\dataframes\{today}_trial-clustering_full_3-5dpf_k6-th04-frac03.tsv",
-#     sep='\t',
-# )
-#
-#
-#
-# #%%
-#
-#
-#
-# import matplotlib.pyplot as plt
-# cell = np.random.choice(clustered_df.index.get_level_values('cell_name').unique())
-# arr = traces.xs(cell, level='cell_name').to_numpy()
-# n_stim = traces.index.get_level_values('stimulus').nunique()
-# arr = arr.reshape((n_stim, arr.shape[0] // n_stim, arr.shape[1]))
-# norm_arr = (arr - np.nanmedian(arr[:,:, :10], axis=2)[:,:,None]) / np.nanmedian(arr[:,:, :10], axis=2)[:,:,None]
-# norm_arr = norm_arr[:,:,10:]
-#
-# clust_arr = clustered_df.xs(cell,level='cell_name').to_numpy()[:,:-1]
-#
-# fig, axes = plt.subplots(2,3, sharex=True, sharey=True)
-# axes = axes.flatten()
-# for i in range(6):
-#     ax = axes[i]
-#     for t in norm_arr[i]:
-#         ax.plot(t, color='gray', alpha=0.5)
-#     ax.plot(clust_arr[i], color='red', alpha=0.8)
-#     ax.plot(np.nanmedian(norm_arr[i], axis=0), color='blue', alpha=0.8)
-# plt.show()

@@ -1,12 +1,4 @@
-"""
-import importlib
-import analysis_helpers.analysis.personal_dirs.Max_W.utils.plotting_functions
-importlib.reload(analysis_helpers.analysis.personal_dirs.Max_W.utils.plotting_functions)
-from analysis_helpers.analysis.personal_dirs.Max_W.utils.plotting_functions import \
-    group_plotter_stimuli_separated, plot_separated_histograms, plot_active_regions_on_brain, plot_boxplots_corr_values
-"""
-
-from copy import copy,deepcopy
+from copy import deepcopy
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -16,7 +8,7 @@ import matplotlib.patches as mpatches
 import matplotlib.path as mpath
 from matplotlib.colors import TwoSlopeNorm, Normalize
 from skimage.measure import find_contours
-from analysis_helpers.analysis.personal_dirs.Max_W.utils.general_toolbox import best_rectangle
+from general_util_functions import best_rectangle
 from itertools import product, combinations
 from scipy.stats import mannwhitneyu, false_discovery_control
 

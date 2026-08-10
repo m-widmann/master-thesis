@@ -1,19 +1,19 @@
 import pandas as pd
 import numpy as np
-from analysis_helpers.analysis.personal_dirs.Max_W.utils.two_p_image_analysis_tools \
+from two_p_image_analysis_tools \
     import get_segmented_signals_multiindex_df, get_experiment_information
-from analysis_helpers.analysis.personal_dirs.Max_W.utils.general_toolbox import pickle_load_object, pickle_save_object
+from general_util_functions import  pickle_save_object
 import pathlib
 from datetime import datetime
 today = datetime.now().strftime('%Y-%m-%d')
 
-df_dir = pathlib.Path(r"C:\Users\ag-bahl\Desktop\Max\master_thesis\2p_functional_imaging\dataframes\3to5dpf")
+df_dir = pathlib.Path(r".\data\3to5dpf")
 full_traces_df = []
 for p in df_dir.glob("*2026-06-23_trial-clustering*.tsv"):
     full_traces_df.append(pd.read_csv(p, sep="\t"))
 
 full_traces_df.append(pd.read_csv(
-    r"C:\Users\ag-bahl\Desktop\Max\master_thesis\2p_functional_imaging\dataframes\WARP\2026-06-23_trial-clustering_dots-lumi-stimulus_k6-th03-frac03.tsv",
+    r".\data\WARP\2026-06-23_trial-clustering_dots-lumi-stimulus_k6-th03-frac03.tsv",
     sep="\t")
 )
 full_traces_df = pd.concat(full_traces_df)
@@ -130,9 +130,9 @@ all_regions.set_index(['fish_id', 'age', 'repeat', 'z_plane', 'region', 'fine_re
 cell_numbers = all_regions.groupby(['age', 'fish_id', 'repeat', 'z_plane', 'region']).size()
 cell_numbers_fine = all_regions.groupby(['age', 'fish_id', 'repeat', 'z_plane', 'fine_region']).size()
 #
-# pickle_save_object(cell_numbers, rf'C:\Users\ag-bahl\Desktop\Max\master_thesis\2p_functional_imaging\dataframes\3to5dpf\{today}-cell_numbers_3to5dpf.pkl')
-# pickle_save_object(cell_numbers_fine, rf'C:\Users\ag-bahl\Desktop\Max\master_thesis\2p_functional_imaging\dataframes\3to5dpf\{today}-cell_numbers_3to5dpf_(fine_regions).pkl')
+pickle_save_object(cell_numbers, rf'.\data\3to5dpf\{today}-cell_numbers_3to5dpf.pkl')
+pickle_save_object(cell_numbers_fine, rf'.\data\3to5dpf\{today}-cell_numbers_3to5dpf_(fine_regions).pkl')
 
 position_df = all_regions.loc[:,['z', 'x', 'y']]
 
-pickle_save_object(position_df, rf"C:\Users\ag-bahl\Desktop\Max\master_thesis\2p_functional_imaging\dataframes\3to5dpf\{today}_3to5dpf_cell_positions.pkl")
+pickle_save_object(position_df, rf".\data\3to5dpf\{today}_3to5dpf_cell_positions.pkl")

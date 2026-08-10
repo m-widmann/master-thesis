@@ -5,7 +5,6 @@ from cv2 import arcLength, contourArea
 import pandas as pd
 from itertools import product
 
-
 def load_segmentation_mask(path, channel=0, repeat=0, tile=0, z_stack=0, segmentation='cellpose'):
     repeat = str(repeat).zfill(2)
     tile = str(tile).zfill(3)
@@ -13,7 +12,6 @@ def load_segmentation_mask(path, channel=0, repeat=0, tile=0, z_stack=0, segment
 
     with h5py.File(path, 'r') as f:
         return np.array(f[f'repeat{repeat}_tile{tile}_z{z_stack}_950nm/preprocessed_data/fish00/{segmentation}_segmentation/masks'])
-
 
 def load_contours_and_centroids(path, channel=0, repeat=0, tile=0, z_stack=0, wavelength=950, segmentation='cellpose', plane_key=None):
     repeat = str(repeat).zfill(2)
@@ -65,7 +63,6 @@ def estimate_midline_from_mask(mask, window=10):
     best_midline = image_midline - window + bin_mask[:, image_midline - window:image_midline + window].sum(
         axis=0).argmax() #sum all black pixels in each column to estimate the midline
     return best_midline
-
 
 def map_ipsi_contra(row):
     hemisphere = row['hemisphere']
@@ -328,8 +325,9 @@ def get_segmented_signals_multiindex_df(
     else:
         return traces_df
 
-def get_experiment_information(path):
 
+def get_experiment_information(path):
+    # return the experiment info as a dict
     path = pathlib.Path(path)
     if path.stem == 'experiment_information':
         exp_p = path
