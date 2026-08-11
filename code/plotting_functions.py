@@ -25,22 +25,6 @@ def get_spaced_colors(n):
     colors = colors[order]
     return colors
 
-# n = 10
-# data = np.random.normal(size=n*50)
-# data = data.reshape(n,-1)
-# row,cols = best_rectangle(n)
-# fig,axes = plt.subplots(nrows=row,ncols=cols)
-# axes = axes.flatten()
-# for c,ax,y in zip(get_spaced_colors(n),axes,data):
-#     ax.plot(y, c=c, lw=2, clip_on=False)
-# for ax in axes:
-#     for s in ax.spines:
-#         ax.spines[s].set_visible(False)
-#         ax.set_yticks([])
-#         ax.set_xticks([])
-# plt.show()
-
-
 def group_ylim(traces, pad, co, q):
     if q is None:
         traces = np.nanpercentile(traces, q=[20, 80], axis=0)

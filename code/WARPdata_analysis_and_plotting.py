@@ -2,14 +2,14 @@ import numpy as np
 import pandas as pd
 import pathlib
 import nrrd
-from analysis_helpers.analysis.personal_dirs.Max_W.utils.general_toolbox import pickle_load_object, pickle_save_object
-from analysis_helpers.analysis.personal_dirs.Max_W.two_p_image_analysis.classify_cells_with_regressors \
-    import correlation_to_regressors
-from analysis_helpers.analysis.personal_dirs.Max_W.utils.plotting_functions import \
+from general_util_functions import pickle_load_object, pickle_save_object
+from classify_cells_with_regressors import correlation_to_regressors
+from plotting_functions import \
     group_plotter_stimuli_separated, add_scale_bar_y, add_scale_bar_x, style_axis
 from copy import copy
 import matplotlib.pyplot as plt
-from matplotlib.patches import Patch
+import matplotlib.colors as mcolors
+import seaborn as sns
 from tslearn.barycenters import softdtw_barycenter
 from scipy.stats import wasserstein_distance, mannwhitneyu, false_discovery_control
 from joblib import Parallel, delayed
@@ -40,7 +40,7 @@ cell_type_colors = {
 
 
 #%% do correlation with lumi_mot stim to find MI cells
-data_path = pathlib.Path(r"C:\Users\ag-bahl\Desktop\Max\master_thesis\2p_functional_imaging\dataframes\WARP")
+data_path = pathlib.Path(r"data\WARP")
 lumi_mot_traces = pd.read_csv(data_path / '2026-06-04_trial-clustering_dots-lumi-stimulus_k6-th03-frac03.tsv',
                               sep='\t', index_col=list(range(8)))
 warp_traces = pd.read_csv(data_path / '2026-06-04_trial-clustering_WARP-stimulus_k6-th02-frac03.tsv',
@@ -64,14 +64,14 @@ df_reset = lumi_mot_traces.reset_index().set_index(['fish_id', 'z_plane', 'cell_
 filtered_lumi_mot_traces = df_reset[df_reset.index.isin(keep_index)].reset_index().set_index(traces_index)
 
 
-regressors_flo = (np.load(r"C:\Users\ag-bahl\Desktop\Max\master_thesis\Flo_kmeans_regressors.npy") * 100)[:3]
+regressors_omr = (np.load(r"data/ideal_responses/motion_regressors.npy") * 100)[:3]
 
 regressor_corr_df = []
 for fish,grouped_df in filtered_lumi_mot_traces.groupby('fish_id'):
     regressor_corr_df.append(
         correlation_to_regressors(
         traces_df=grouped_df.xs('Rhombencephalon', level='region'),
-        regressors=regressors_flo[:,None,:],
+        regressors=regressors_omr[:,None,:],
         min_correlation=0.7,
         cell_type_difference_threshold=0.1,
         quantile_cutoff=0.0,
@@ -88,7 +88,7 @@ for fish,grouped_df in filtered_lumi_mot_traces.groupby('fish_id'):
     ))
 regressor_corr_df = pd.concat(regressor_corr_df)
 regressor_corr_df.dropna(how='any', inplace=True)
-
+# Fig 14 A
 group_plotter_stimuli_separated(
     trace_df=lumi_mot_traces,
     group_df=regressor_corr_df,
@@ -111,10 +111,10 @@ group_plotter_stimuli_separated(
     title='Hindbrain Motion Cell Types',
     fig_size=(3,12),
 )
-#%%
-katja_regressors = pd.read_csv(r"C:\Users\ag-bahl\Desktop\Max\master_thesis\Katjas_model_regressors.tsv", sep="\t",
+#%% Fig S3 A
+lumi_mot_regressors = pd.read_csv(r"data/ideal_responses/lumi_mot_regressors.tsv", sep="\t",
                                index_col=[0, 1])  # ['Luminance', 'Bright', 'Dark', 'Motion', 'Difference', 'Drive']
-regressors = katja_regressors.to_numpy().reshape((6, 6, 120))[
+regressors = lumi_mot_regressors.to_numpy().reshape((6, 6, 120))[
     :, [1, 3, 4, 5]]  # lumi ipsi, lumi contra, dots ipsi, dots contra
 pure_lumi_regressors = regressors[[0, 1, 2, 4]]
 
@@ -167,9 +167,9 @@ group_plotter_stimuli_separated(
     fig_size=(3,12),
 )
 
-#%%
+#%% Fig 15 A
 positions_df = pickle_load_object(
-    r"C:\Users\ag-bahl\Desktop\Max\master_thesis\2p_functional_imaging\dataframes\3to5dpf\2026-06-26_3to5dpf_cell_positions.pkl")
+    r"data\3to5dpf\2026-06-26_3to5dpf_cell_positions.pkl")
 mi_cells =  regressor_corr_df.loc[regressor_corr_df['cell_type'] == 'Motion Integrator'].index.get_level_values("cell_name").values
 mi_positions = positions_df.loc[np.isin(positions_df.index.get_level_values("cell_name"), mi_cells)]
 mi_coords = mi_positions.loc[:,['z','y','x']].to_numpy()
@@ -182,7 +182,7 @@ ax.imshow(brain_image, cmap='gray')
 ax.scatter(y=mi_coords[:,1], x=mi_coords[:,2]-41, c='#359B73', alpha=.6)
 style_axis(ax)
 plt.show()
-#%% plot warp cells and get the barycenters
+#%% plot warp cells and get the barycenters (Fig S3 B)
 corr_df_warp_cells = copy(pd.concat([regressor_corr_df, lumi_corr_df])).reset_index()
 corr_df_warp_cells['cell_name'] = corr_df_warp_cells['cell_name'].map(cell_map)
 corr_df_warp_cells.set_index(regressor_corr_df.index.names, inplace=True)
@@ -210,7 +210,7 @@ group_plotter_stimuli_separated(
 )
 
 
-#%%
+#%% Fig 14 D
 #get regressors for the Janelia data
 mi_cells = corr_df_warp_cells.loc[corr_df_warp_cells['cell_type'] == 'Motion Integrator'].index.get_level_values('cell_name').unique()
 mi_warp_barycenters = []
@@ -236,11 +236,11 @@ for i,ax in enumerate(axes):
     style_axis(ax)
 plt.show()
 
-pickle_save_object((mi_warp_barycenters, stim_index), rf'C:\Users\ag-bahl\Desktop\Max\master_thesis\objects\{today}_motion_integrator_warp_responses.pkl')
+pickle_save_object((mi_warp_barycenters, stim_index), f'{today}_motion_integrator_warp_responses.pkl')
 #%%
-katja_regressors = pd.read_csv(r"C:\Users\ag-bahl\Desktop\Max\master_thesis\Katjas_model_regressors.tsv", sep="\t",
+lumi_mot_regressors = pd.read_csv(r"data/ideal_responses/lumi_mot_regressors.tsv", sep="\t",
                                index_col=[0, 1])  # ['Luminance', 'Bright', 'Dark', 'Motion', 'Difference', 'Drive']
-regressors = katja_regressors.to_numpy().reshape((6, 6, 120))[
+regressors = lumi_mot_regressors.to_numpy().reshape((6, 6, 120))[
     :, [1, 3, 4, 5]]  # lumi ipsi, lumi contra, dots ipsi, dots contra
 pure_lumi_regressors = regressors[[0, 1, 2, 4]]
 
@@ -266,7 +266,7 @@ for fish,grouped_df in filtered_lumi_mot_traces.groupby('fish_id'):
     ))
 lumi_corr_df = pd.concat(regressor_corr_df)
 lumi_corr_df.dropna(how='any', inplace=True)
-
+# Fig S3 A
 group_plotter_stimuli_separated(
     trace_df=lumi_mot_traces,
     group_df=lumi_corr_df,
@@ -285,7 +285,7 @@ group_plotter_stimuli_separated(
     stimuli=['lumi_ipsi', 'lumi_contra', 'dots_ipsi', 'dots_contra'],
     title='Luminance Cell Types'
 )
-#%%
+#%% Fig S3 B
 lumi_warp_cells = copy(lumi_corr_df).reset_index()
 lumi_warp_cells['cell_name'] = lumi_warp_cells['cell_name'].map(cell_map)
 lumi_warp_cells.set_index(lumi_corr_df.index.names, inplace=True)
@@ -312,7 +312,7 @@ group_plotter_stimuli_separated(
 
 
 #%% load janelia data
-warp_data_dir = pathlib.Path(r"C:\Users\ag-bahl\Desktop\Max\Janelia_Expression_Data\postprocessed")
+warp_data_dir = pathlib.Path(r"warp_data\postprocessed")
 # https://figshare.com/s/d1d19b105c4f74865c32
 dff_traceAllavg = np.load(warp_data_dir / 'dff_traceAllavg.npy')
 stim_timings = np.load(warp_data_dir / 'stim_timings_ds.npy')
@@ -382,12 +382,10 @@ for cell,ipsi,clstr in zip(cell_numbers, filt_hemisphere, cluster_labels):
 janelia_traces = pd.DataFrame(traces_stim_separated[mask].reshape((-1,17)))
 janelia_traces.index = pd.MultiIndex.from_tuples(index_tuples, names=['cell_number', 'cluster', 'stimulus'])
 
-pickle_save_object((janelia_traces,mask), rf"C:\Users\ag-bahl\Desktop\Max\master_thesis\objects\{today}_janelia_trace_df.pkl")
+# pickle_save_object((janelia_traces,mask), rf"data\WARP\{today}_janelia_trace_df.pkl")
+# janelia_traces,mask = pickle_load_object(r"data\WARP\2026-07-24_janelia_trace_df.pkl")
+warp_MI_regressors, stimuli = pickle_load_object(r"data\WARP\\2026-07-15_motion_integrator_warp_responses.pkl")
 
-#%%
-janelia_traces,mask = pickle_load_object(r"C:\Users\ag-bahl\Desktop\Max\master_thesis\objects\2026-07-24_janelia_trace_df.pkl")
-warp_MI_regressors, stimuli = pickle_load_object(r"C:\Users\ag-bahl\Desktop\Max\master_thesis\objects\2026-07-15_motion_integrator_warp_responses.pkl")
-warp_data_dir = pathlib.Path(r"C:\Users\ag-bahl\Desktop\Max\Janelia_Expression_Data\postprocessed")
 brain_regions_arr = np.load(warp_data_dir / 'BrainRegions_All.npy')
 region_names = np.load(warp_data_dir.parent / "Fish1/region_names.npy")
 hb_cells = np.where(brain_regions_arr[:,np.where(region_names == 'rhombencephalon_(hindbrain)')[0][0]])[0]
@@ -397,7 +395,6 @@ mi_x_bounds = (170,400)
 hb_coords = coordinates[hb_cells]
 in_bounds = [mi_x_bounds[0] < x < mi_x_bounds[1] and mi_y_bounds[0] < y < mi_y_bounds[1]  for x,y in hb_coords[:,1:]]
 selected_hb_cells = hb_cells[in_bounds]
-#%%
 warp_corr_df_full = correlation_to_regressors(
     traces_df=janelia_traces,
     regressors=warp_MI_regressors[None,-4:,:],
@@ -419,13 +416,12 @@ warp_corr_df_full = correlation_to_regressors(
 warp_corr_df_full.dropna(how='any', inplace=True)
 warp_corr_df = copy(warp_corr_df_full.loc[warp_corr_df_full["correlation_value"] >= 0.7])
 warp_mi_cells = np.intersect1d(warp_corr_df.index.values, selected_hb_cells)
-#%%
-warp_data_dir = pathlib.Path(r"C:\Users\ag-bahl\Desktop\Max\Janelia_Expression_Data\postprocessed")
 coordinates = np.load(warp_data_dir / 'Coords_All.npy') #z,x,y
 
-# warp cells are registered to mapzebrain but I want to plot them on the zbrain
-# so there is some shifting to be done
+# Fig 15 B
 
+# warp cells are registered to mapzebrain but plot them on the zbrain to compare
+# so there is some shifting to be done
 mapzebrain_vol = nrrd.read(r"Z:\Zebrafish atlases\mapzebrain_atlas2024\volume_stacks\T_AVG_elavl3GCaMP6s.nrrd")[0] #x,y,z
 mzb_img = mapzebrain_vol[:,:,150:300].mean(axis=2).transpose(1,0)
 mzb_cropped = mzb_img[2:-32,65:-(37+65)]
@@ -447,7 +443,7 @@ ax.scatter(x=hb_mi_coords[:,0], y=hb_mi_coords[:,1], alpha=0.6, c=color_palette[
 style_axis(ax)
 plt.show()
 
-#%%
+#%% Fig 15 C
 group_plotter_stimuli_separated(
     trace_df=janelia_traces,
     group_df=warp_corr_df.loc[~np.isin(warp_corr_df.index, warp_mi_cells)],
@@ -470,7 +466,7 @@ group_plotter_stimuli_separated(
     fig_size=(8,3)
 )
 
-#%%
+#%% Fig 15 D
 group_plotter_stimuli_separated(
     trace_df=janelia_traces,
     group_df=warp_corr_df.loc[warp_mi_cells],
@@ -492,26 +488,8 @@ group_plotter_stimuli_separated(
     title='selected WARP Cells correlated with MI cells',
     fig_size=(8,3)
 )
-#%%
-cluster_labels = np.load(warp_data_dir / 'cluster_labelsAll2.npy')
-cluster_names = np.concat([[None],np.load(warp_data_dir / 'good_cls_names.npy')])
-hb_clusters_unique = np.unique(cluster_labels[hb_cells], return_counts=True)
-hb_cluster_sizes = np.zeros(len(cluster_names)+1).astype(int)
-hb_cluster_sizes[hb_clusters_unique[0]] = hb_clusters_unique[1]
 
-cluster_subset = cluster_labels[warp_mi_cells]
-cluster_counts = np.unique(cluster_subset, return_counts=True)
-cluster_counts = np.array(cluster_counts).transpose(1,0)
-percentages = [n / hb_cluster_sizes[x] for x,n in cluster_counts]
-order = np.argsort(percentages)
-order = order[::-1]
-for i in order:
-    p = percentages[i]
-    label = cluster_counts[i,0]
-    n = cluster_counts[i,1]
-    if n > 5:
-        print(f"Cluster {label} {cluster_names[label]}: {n} cells, {np.round(p*100,2)}%")
-#%%
+#%% Fig 16
 gene_expression_data = np.load(warp_data_dir / 'genes_df_All.npy')
 gene_names = np.array([
     'cart2', 'glyt2', 'tac1', 'pvalb7', 'npb', 'grm1b', 'irx1b', 'dat', 'net', 'calb1',
@@ -525,7 +503,7 @@ hindbrain_gene_data = gene_expression_data[selected_hb_cells]
 subset_gene_data = np.delete(subset_gene_data, 16, 1)
 hindbrain_gene_data = np.delete(hindbrain_gene_data, 16, 1)
 gene_names = np.delete(gene_names, 16)
-#%%
+
 def _wasserstein_parallel(x,n,rng):
     rng.shuffle(x)
     dist = wasserstein_distance(x[:n], x)
@@ -555,7 +533,7 @@ for subset,full,gene in zip(subset_gene_data.transpose(1,0), hindbrain_gene_data
     u_test.append(mannwhitneyu(subset,full,alternative='two-sided'))
     diff_in_mean.append(np.nanmedian(full[full > 0]) - np.nanmedian(subset[subset > 0]))
 u_test = np.array(u_test)
-    u_test_direction =  np.array(["higher" if x > 0 else "lower" for x in diff_in_mean])
+u_test_direction =  np.array(["higher" if x > 0 else "lower" for x in diff_in_mean])
 
 
 wasserstein = []
@@ -578,10 +556,6 @@ fig,ax = plt.subplots()
 ax.scatter(x=effect_sizes[~signif_mask], y=neg_log10_p[~signif_mask], c='grey')
 ax.scatter(x=effect_sizes[up_index], y=neg_log10_p[up_index], c=color_palette[3])
 ax.scatter(x=effect_sizes[down_index], y=neg_log10_p[down_index], c=color_palette[0])
-# ax.axhline(-np.log10(.05), color='black', linestyle='--', linewidth=0.8, alpha=.5)
-# x_th = abs(effect_sizes[signif_mask]).min() * .95
-# ax.axvline(x_th, color='black', linestyle='--', linewidth=0.8, alpha=.5)
-# ax.axvline(-x_th, color='black', linestyle='--', linewidth=0.8, alpha=.5)
 max_x = np.max(abs(effect_sizes)) * 1.05
 max_y = np.max(neg_log10_p) * 1.05
 ax.set_xlim([-max_x, max_x])
@@ -605,12 +579,9 @@ for i in range(subset_gene_counts_up.shape[1]):
     subset_gene_counts_up[non_zeros[:, i], i] = (values - values.min()) / (values.max() - values.min()) + 0.1
 cmap = plt.cm.plasma.copy()
 cmap.set_under('gray')
-
-import matplotlib.colors as mcolors
-
 norm = mcolors.Normalize(vmin=0.09, vmax=subset_gene_counts_up.max())
 
-import seaborn as sns
+# do binary heatmap first to get nice clustering of cells
 cg = sns.clustermap(
     subset_gene_counts_up.astype(bool),
     row_cluster=True,
@@ -619,7 +590,7 @@ cg = sns.clustermap(
     norm=norm,)
 cell_order = np.array(cg.dendrogram_row.reordered_ind)
 plt.close()
-
+# Fig 17
 cg = sns.clustermap(
     subset_gene_counts_up[cell_order,:],
     row_cluster=False,
@@ -627,30 +598,6 @@ cg = sns.clustermap(
     cmap=cmap,
     norm=norm,)
 plt.setp(cg.ax_heatmap.set_xticklabels(gene_names[up_index]), rotation=0, horizontalalignment='center')
-
-#%%
-subset_gene_counts_down = np.log1p(subset_gene_data[:, down_index])
-non_zeros = subset_gene_counts_down != 0
-for i in range(subset_gene_counts_down.shape[1]):
-    values = subset_gene_counts_down[non_zeros[:,i], i]
-    subset_gene_counts_down[non_zeros[:, i], i] = (values - values.min()) / (values.max() - values.min()) + 0.1
-
-subset_gene_counts_comb =  np.hstack([subset_gene_counts_up, subset_gene_counts_down])
-import seaborn as sns
-cg = sns.clustermap(
-    subset_gene_counts_comb.astype(bool),
-    row_cluster=True,
-    col_cluster=False,)
-cell_order = np.array(cg.dendrogram_row.reordered_ind)
-plt.close()
-
-cg = sns.clustermap(
-    subset_gene_counts_comb[cell_order,:],
-    row_cluster=False,
-    col_cluster=False,
-    cmap=cmap,
-    norm=norm,)
-plt.setp(cg.ax_heatmap.set_xticklabels(np.concat([gene_names[up_index], gene_names[down_index]])), rotation=0, horizontalalignment='center')
 
 #%%
 up_genes = np.array(['gad1b', 'vglut2a', 'otpa', 'irx1b', 'npb', 'tac1'])
@@ -675,15 +622,12 @@ for i in range(2,7):
         mult_exp[",".join(t)] = mask
 mult_exp_df = pd.DataFrame(mult_exp)
 #
-#%%
+#%% Fig 18
 correlation_data = {}
 for gene in mult_exp_df.columns:
     corr_values = warp_corr_df_full.loc[np.isin(warp_corr_df_full.index, mult_exp_df.loc[mult_exp_df[gene]].index),'correlation_value'].values
     if len(corr_values) >= 20:
         correlation_data[gene] = corr_values
-
-import matplotlib.pyplot as plt
-from scipy.stats import mannwhitneyu, false_discovery_control
 
 corr_quantiles = np.quantile(warp_corr_df_full['correlation_value'].values, q=[0.25, .5, .75, .9])
 all_group_medians = np.array([np.median(v)for v in correlation_data.values()])
@@ -753,7 +697,7 @@ ax.set_ylabel(r"correlation coefficient $\rho$")
 
 plt.tight_layout()
 plt.show()
-#%%
+#%% Fig S4
 category_df = pd.DataFrame(mult_exp_df.idxmax(axis=1), columns=['category',])
 group_plotter_stimuli_separated(
     trace_df=janelia_traces,
